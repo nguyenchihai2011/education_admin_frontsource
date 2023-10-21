@@ -15,15 +15,13 @@
 </template>
 <script>
 export default {
-  name: 'DefaultListItem',
+  name: "DefaultListItem",
   props: {
     item: {
       type: Object,
       default: () => ({})
     }
   }
-}
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

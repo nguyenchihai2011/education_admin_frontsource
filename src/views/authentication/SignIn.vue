@@ -2,53 +2,46 @@
   <v-container class="fill-height">
     <v-row justify="center">
       <v-col cols="auto">
-        <v-card
-          width="460"
-        >
+        <v-card width="460">
           <v-card-text class="text-center px-12 py-16">
-            <validation-observer
-              ref="observer"
-              v-slot="{ invalid }"
-            >
-              <v-form
-                ref="form"
-                @submit.prevent="signIn"
-              >
+            <validation-observer ref="observer" v-slot="{ invalid }">
+              <v-form ref="form" @submit.prevent="signIn">
                 <div class="text-h4 font-weight-black mb-10">
-                  로그인
+                  Sign In
                 </div>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="이메일"
+                  name="Username"
                   :rules="{
-                    required: true,
+                    required: true
                   }"
                 >
                   <v-text-field
-                    v-model="email"
-                    label="이메일"
-                    clearable
-                    prepend-icon="mdi-email"
+                    v-model="username"
+                    label="Username"
+                    prepend-icon="mdi-account"
                     :error-messages="errors"
                   />
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="비밀번호"
+                  name="Password"
                   :rules="{
-                    required: true,
+                    required: true
                   }"
                 >
                   <v-text-field
                     v-model="password"
-                    label="비밀번호"
-                    clearable
+                    label="Password"
                     prepend-icon="mdi-lock-outline"
                     :error-messages="errors"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append="showPassword = !showPassword"
                   />
                 </validation-provider>
                 <v-btn
-                  class="mt-6"
+                  class="mt-6 text-none"
                   type="submit"
                   block
                   x-large
@@ -56,22 +49,20 @@
                   color="primary"
                   :disabled="invalid"
                 >
-                  로그인
+                  Signin
                 </v-btn>
-                <div class="mt-5">
-                  <router-link
-                    class="text-decoration-none"
-                    to="/"
-                  >
+                <!-- <div class="mt-5">
+                  <router-link class="text-decoration-none" to="/">
                     홈
-                  </router-link> |
+                  </router-link>
+                  |
                   <router-link
                     class="text-decoration-none"
                     to="/authentication/sign-up"
                   >
                     회원가입
                   </router-link>
-                </div>
+                </div> -->
               </v-form>
             </validation-observer>
           </v-card-text>
@@ -81,23 +72,40 @@
   </v-container>
 </template>
 <script>
+import { signIn } from "../../api/auth";
+import { mapActions } from "vuex";
 export default {
-  name: 'SignIn',
+  name: "SignIn",
   data: () => ({
-    email: null,
+    username: null,
     password: null,
+    showPassword: false
   }),
   methods: {
-    signIn () {
+    ...mapActions("snackbar", ["addSnackbar"]),
+    signIn() {
       this.$refs.observer.validate().then(result => {
         if (result) {
-          alert('로그직 로직')
+          const payload = {
+            username: this.username,
+            password: this.password
+          };
+          signIn(payload)
+            .then(res => {
+              localStorage.setItem("token", res.data.token);
+              this.addSnackbar({
+                isShow: true,
+                text: "Login is successfully.",
+                priority: "success",
+                timeout: 3000
+              });
+              this.$router.push("/");
+            })
+            .catch(err => console.log(err));
         }
-      })
+      });
     }
   }
-}
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

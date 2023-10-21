@@ -1,12 +1,6 @@
 <template>
-  <v-list
-    dense
-    expand
-    nav
-  >
-    <template
-      v-for="(item, index) in items"
-    >
+  <v-list dense expand nav>
+    <template v-for="(item, index) in items">
       <default-list-group
         v-if="item.items"
         :key="`group-${index}`"
@@ -16,27 +10,33 @@
         v-else
         :key="`item-${index}`"
         :item="item"
+        @click="item.title === 'Logout' ? logout() : () => {}"
       />
     </template>
   </v-list>
 </template>
 <script>
-import DefaultListItem from './ListItem'
-import DefaultListGroup from './ListGroup'
+import DefaultListItem from "./ListItem";
+import DefaultListGroup from "./ListGroup";
 export default {
-  name: 'DefaultList',
+  name: "DefaultList",
   components: {
     DefaultListItem,
-    DefaultListGroup,
+    DefaultListGroup
   },
+
+  methods: {
+    logout() {
+      localStorage.clear();
+    }
+  },
+
   props: {
     items: {
       type: Array,
-      default: () => ([]),
+      default: () => []
     }
   }
-}
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

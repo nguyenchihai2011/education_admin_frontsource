@@ -1,153 +1,119 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    component: () => import(
-      /* webpackChunkName: "layouts-default-index" */
-      '@/layouts/default/Index'
-    ),
+    path: "/",
+    component: () => import("@/layouts/default/Index"),
     children: [
       {
-        path: '/',
-        name: 'Dashboard',
-        component: () => import(
-          /* webpackChunkName: "views-dashboard" */
-          '@/views/Dashboard'
-        )
+        path: "/",
+        name: "Dashboard",
+        component: () => import("@/views/Dashboard")
       },
       {
-        path: '/grid-system',
-        name: 'GridSystem',
-        component: () => import(
-          /* webpackChunkName: "views-grid-system" */
-          '@/views/GridSystem'
-        )
+        path: "/category",
+        name: "Category",
+        component: () => import("@/views/Category")
       },
       {
-        path: '/grid-list-page',
-        name: 'GridListPage',
-        component: () => import(
-          /* webpackChunkName: "views-grid-list-page" */
-          '@/views/GridListPage'
-        )
+        path: "/grid-system",
+        name: "GridSystem",
+        component: () => import("@/views/GridSystem")
       },
       {
-        path: '/breakpoints',
-        name: 'Breakpoints',
-        component: () => import(
-          /* webpackChunkName: "views-breakpoints" */
-          '@/views/Breakpoints'
-        )
+        path: "/grid-list-page",
+        name: "GridListPage",
+        component: () => import("@/views/GridListPage")
       },
       {
-        path: '/typography',
-        name: 'Typography',
-        component: () => import(
-          /* webpackChunkName: "views-typography" */
-          '@/views/Typography'
-        )
+        path: "/breakpoints",
+        name: "Breakpoints",
+        component: () => import("@/views/Breakpoints")
       },
       {
-        path: '/tables/app-table',
-        name: 'AppTables',
-        component: () => import(
-          /* webpackChunkName: "views-app-tables" */
-          '@/views/table/AppTables'
-        )
+        path: "/typography",
+        name: "Typography",
+        component: () => import("@/views/Typography")
       },
       {
-        path: '/tables/basic-table',
-        name: 'BasicTables',
-        component: () => import(
-          /* webpackChunkName: "views-basic-tables" */
-          '@/views/table/BasicTables'
-        )
+        path: "/tables/app-table",
+        name: "AppTables",
+        component: () => import("@/views/table/AppTables")
       },
       {
-        path: '/forms/validation-form',
-        name: 'ValidationForm',
-        component: () => import(
-          /* webpackChunkName: "views-validation-forms" */
-          '@/views/form/ValidationForms'
-        )
+        path: "/tables/basic-table",
+        name: "BasicTables",
+        component: () => import("@/views/table/BasicTables")
       },
       {
-        path: '/forms/app-form',
-        name: 'AppForm',
-        component: () => import(
-          /* webpackChunkName: "views-app-forms" */
-          '@/views/form/AppForms'
-        )
+        path: "/forms/validation-form",
+        name: "ValidationForm",
+        component: () => import("@/views/form/ValidationForms")
       },
       {
-        path: '/buttons',
-        name: 'Buttons',
-        component: () => import(
-          /* webpackChunkName: "views-buttons" */
-          '@/views/Buttons'
-        )
+        path: "/forms/app-form",
+        name: "AppForm",
+        component: () => import("@/views/form/AppForms")
       },
       {
-        path: '/icons',
-        name: 'Icons',
-        component: () => import(
-          /* webpackChunkName: "views-icons" */
-          '@/views/Icons'
-        )
+        path: "/buttons",
+        name: "Buttons",
+        component: () => import("@/views/Buttons")
       },
+      {
+        path: "/icons",
+        name: "Icons",
+        component: () => import("@/views/Icons")
+      }
     ]
   },
   {
-    path: '/authentication',
-    component: () => import(
-      /* webpackChunkName: "layouts-authentication-index" */
-      '@/layouts/authentication/Index'
-    ),
+    path: "/authentication",
+    component: () => import("@/layouts/authentication/Index"),
     children: [
       {
-        path: 'sign-in',
-        name: 'SignIn',
-        component: () => import(
-          /* webpackChunkName: "views-sign-in" */
-          '@/views/authentication/SignIn'
-        )
+        path: "sign-in",
+        name: "SignIn",
+        component: () => import("@/views/authentication/SignIn")
       },
       {
-        path: 'sign-up',
-        name: 'SignUp',
-        component: () => import(
-          /* webpackChunkName: "views-sign-up" */
-          '@/views/authentication/SignUp'
-        )
-      },
+        path: "sign-up",
+        name: "SignUp",
+        component: () => import("@/views/authentication/SignUp")
+      }
     ]
   },
   {
-    path: '/page',
-    component: () => import(
-      /* webpackChunkName: "layouts-page-index" */
-      '@/layouts/page/Index'
-    ),
+    path: "/page",
+    component: () => import("@/layouts/page/Index"),
     children: [
       {
-        path: 'product-list',
-        name: 'ProductList',
-        component: () => import(
-          /* webpackChunkName: "views-product-list" */
-          '@/views/page/ProductList'
-        )
-      },
+        path: "product-list",
+        name: "ProductList",
+        component: () => import("@/views/page/ProductList")
+      }
     ]
   }
-]
+];
 const router = new VueRouter({
-  mode: process.env.NODE_ENV === 'production' ? 'hash' : 'history',
+  mode: process.env.NODE_ENV === "production" ? "hash" : "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (!checkUserLoggedIn() && to.name !== "SignIn") {
+    next({ name: "SignIn" });
+  } else {
+    next();
+  }
+});
+
+function checkUserLoggedIn() {
+  return !!localStorage.getItem("token");
+}
+
+export default router;

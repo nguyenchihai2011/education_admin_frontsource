@@ -6,25 +6,20 @@
       </v-card-title>
       <v-card-text>
         <v-item-group mandatory>
-          <v-sheet
-            class="overflow-y-auto"
-            max-height="600"
-            tile
-          >
+          <v-sheet class="overflow-y-auto" max-height="600" tile>
             <v-item
-              v-for="[
-                c,
-                text,
-                size,
-                weight,
-                spacing,
-                margin
-              ] in classes"
+              v-for="[c, text, size, weight, spacing, margin] in classes"
               :key="c"
             >
               <template v-slot:default="{ active, toggle }">
                 <v-sheet
-                  :color="active ? $vuetify.theme.dark ? 'grey darken-3' : 'grey lighten-4' : undefined"
+                  :color="
+                    active
+                      ? $vuetify.theme.dark
+                        ? 'grey darken-3'
+                        : 'grey lighten-4'
+                      : undefined
+                  "
                   class="px-4 pt-4 pb-3"
                   tile
                   style="cursor: pointer;"
@@ -37,10 +32,7 @@
                   />
 
                   <v-expand-transition>
-                    <v-responsive
-                      v-if="active"
-                      max-width="350"
-                    >
+                    <v-responsive v-if="active" max-width="350">
                       <div class="d-flex justify-space-between text-caption">
                         <div>
                           <div class="grey--text mb-2">
@@ -57,10 +49,7 @@
                             Weight
                           </div>
 
-                          <div
-                            class="font-weight-medium"
-                            v-text="weight"
-                          />
+                          <div class="font-weight-medium" v-text="weight" />
                         </div>
 
                         <div>
@@ -68,10 +57,7 @@
                             Size
                           </div>
 
-                          <div
-                            class="font-weight-medium"
-                            v-text="size"
-                          />
+                          <div class="font-weight-medium" v-text="size" />
                         </div>
 
                         <div>
@@ -79,10 +65,7 @@
                             Letter spacing
                           </div>
 
-                          <div
-                            class="font-weight-medium"
-                            v-text="spacing"
-                          />
+                          <div class="font-weight-medium" v-text="spacing" />
                         </div>
                       </div>
                     </v-responsive>
@@ -111,21 +94,22 @@
               <template v-slot:default="{ active, toggle }">
                 <v-hover v-slot="{ hover }">
                   <div
-                    :class="[(active || hover) ? 'text--primary' : 'text--secondary']"
+                    :class="[
+                      active || hover ? 'text--primary' : 'text--secondary'
+                    ]"
                     class="ma-3 text-center"
                     style="cursor: pointer"
                     @click="toggle"
                   >
                     <v-icon
-                      :color="(active || hover) ? 'grey darken-4' : 'grey lighten-1'"
+                      :color="
+                        active || hover ? 'grey darken-4' : 'grey lighten-1'
+                      "
                       class="pa-1 mb-1"
                       v-text="icon"
                     />
 
-                    <div
-                      class="text-caption"
-                      v-text="bp"
-                    />
+                    <div class="text-caption" v-text="bp" />
                   </div>
                 </v-hover>
               </template>
@@ -180,10 +164,7 @@
         Decoration
       </v-card-title>
       <v-card-text>
-        <a
-          href="#"
-          class="text-decoration-none"
-        >Non-underlined link</a>
+        <a href="#" class="text-decoration-none">Non-underlined link</a>
 
         <div class="text-decoration-line-through">
           Line-through text
@@ -205,46 +186,44 @@ export default {
   data: () => ({
     model: null,
     classes: [
-      ['h1', 'Heading 1', '6rem', '300', '-.015625em', -1],
-      ['h2', 'Heading 2', '3.75rem', '300', '-.0083333333em', 0],
-      ['h3', 'Heading 3', '3rem', '400', 'normal', 1],
-      ['h4', 'Heading 4', '2.125rem', '400', '.0073529412em', 2],
-      ['h5', 'Heading 5', '1.5rem', '400', 'normal', 2],
-      ['h6', 'Heading 6', '1.25rem', '500', '.0125em', 3],
-      ['subtitle-1', 'Subtitle 1', '1rem', '400', '.009375em', 4],
-      ['subtitle-2', 'Subtitle 2', '0.875rem', '500', '.0071428571em', 4],
-      ['body-1', 'Body 1', '1rem', '400', '.03125em', 4],
-      ['body-2', 'Body 2', '0.875rem', '400', '.0178571429em', 4],
-      ['button', 'Button', '0.875rem', '500', '.0892857143em', 4],
-      ['caption', 'Caption', '0.75rem', '400', '.0333333333em', 4],
-      ['overline', 'Overline', '0.75rem', '500', '.1666666667em', 4],
+      ["h1", "Heading 1", "6rem", "300", "-.015625em", -1],
+      ["h2", "Heading 2", "3.75rem", "300", "-.0083333333em", 0],
+      ["h3", "Heading 3", "3rem", "400", "normal", 1],
+      ["h4", "Heading 4", "2.125rem", "400", ".0073529412em", 2],
+      ["h5", "Heading 5", "1.5rem", "400", "normal", 2],
+      ["h6", "Heading 6", "1.25rem", "500", ".0125em", 3],
+      ["subtitle-1", "Subtitle 1", "1rem", "400", ".009375em", 4],
+      ["subtitle-2", "Subtitle 2", "0.875rem", "500", ".0071428571em", 4],
+      ["body-1", "Body 1", "1rem", "400", ".03125em", 4],
+      ["body-2", "Body 2", "0.875rem", "400", ".0178571429em", 4],
+      ["button", "Button", "0.875rem", "500", ".0892857143em", 4],
+      ["caption", "Caption", "0.75rem", "400", ".0333333333em", 4],
+      ["overline", "Overline", "0.75rem", "500", ".1666666667em", 4]
     ],
-    model2: 'caption',
+    model2: "caption",
     sizes: [
-      ['mdi-devices', 'all', 'caption'],
-      ['mdi-cellphone-iphone', 'sm', 'body-2'],
-      ['mdi-laptop', 'md', 'body-1'],
-      ['mdi-monitor', 'lg', 'h6'],
-      ['mdi-television', 'xl', 'h4'],
-    ],
+      ["mdi-devices", "all", "caption"],
+      ["mdi-cellphone-iphone", "sm", "body-2"],
+      ["mdi-laptop", "md", "body-1"],
+      ["mdi-monitor", "lg", "h6"],
+      ["mdi-television", "xl", "h4"]
+    ]
   }),
   computed: {
-    typeClass () {
-      const type = ['text', this.model2]
-      const [, breakpoint] = this.current
+    typeClass() {
+      const type = ["text", this.model2];
+      const [, breakpoint] = this.current;
 
-      if (breakpoint !== 'all') {
-        type.splice(1, 0, breakpoint)
+      if (breakpoint !== "all") {
+        type.splice(1, 0, breakpoint);
       }
 
-      return `.${type.join('-')}`
+      return `.${type.join("-")}`;
     },
-    current () {
-      return this.sizes.find(size => size[2] === this.model2)
-    },
-  },
-}
+    current() {
+      return this.sizes.find(size => size[2] === this.model2);
+    }
+  }
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>
