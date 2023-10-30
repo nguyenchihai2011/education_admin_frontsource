@@ -5,6 +5,9 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import store from "./store";
 import "./plugins";
+import PrimeVue from "primevue/config";
+
+Vue.use(PrimeVue);
 
 Vue.config.productionTip = false;
 

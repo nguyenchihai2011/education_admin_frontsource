@@ -19,34 +19,34 @@ const routes = [
         component: () => import("@/views/Category")
       },
       {
-        path: "/grid-system",
-        name: "GridSystem",
-        component: () => import("@/views/GridSystem")
+        path: "/course",
+        name: "Course",
+        component: () => import("@/views/Course")
       },
       {
-        path: "/grid-list-page",
-        name: "GridListPage",
-        component: () => import("@/views/GridListPage")
+        path: "/video",
+        name: "Video",
+        component: () => import("@/views/Video")
       },
       {
-        path: "/breakpoints",
-        name: "Breakpoints",
-        component: () => import("@/views/Breakpoints")
+        path: "/teacher",
+        name: "Teacher",
+        component: () => import("@/views/Teacher")
       },
       {
-        path: "/typography",
-        name: "Typography",
-        component: () => import("@/views/Typography")
+        path: "/student",
+        name: "Student",
+        component: () => import("@/views/Student")
       },
       {
         path: "/tables/app-table",
         name: "AppTables",
-        component: () => import("@/views/table/AppTables")
+        component: () => import("@/views/Dashboard")
       },
       {
         path: "/tables/basic-table",
         name: "BasicTables",
-        component: () => import("@/views/table/BasicTables")
+        component: () => import("@/views/Dashboard")
       },
       {
         path: "/forms/validation-form",

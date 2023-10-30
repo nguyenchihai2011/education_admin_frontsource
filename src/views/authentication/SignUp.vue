@@ -6,22 +6,13 @@
           <v-img
             class="mx-auto mb-6"
             width="120"
-            :src="
-              require('@/assets/logo.png')"
+            :src="require('@/assets/logo.png')"
           />
         </router-link>
-        <v-card
-          width="460"
-        >
+        <v-card width="460">
           <v-card-text class="text-center px-12 py-16">
-            <validation-observer
-              ref="observer"
-              v-slot="{ invalid }"
-            >
-              <v-form
-                ref="form"
-                @submit.prevent="signUp"
-              >
+            <validation-observer ref="observer" v-slot="{ invalid }">
+              <v-form ref="form" @submit.prevent="signUp">
                 <div class="text-h4 font-weight-black mb-10">
                   회원가입
                 </div>
@@ -29,7 +20,7 @@
                   v-slot="{ errors }"
                   name="이메일"
                   :rules="{
-                    required: true,
+                    required: true
                   }"
                 >
                   <v-text-field
@@ -44,7 +35,7 @@
                   v-slot="{ errors }"
                   name="비밀번호"
                   :rules="{
-                    required: true,
+                    required: true
                   }"
                 >
                   <v-text-field
@@ -59,7 +50,7 @@
                   v-slot="{ errors }"
                   name="비밀번호 확인"
                   :rules="{
-                    confirmed: '비밀번호',
+                    confirmed: '비밀번호'
                   }"
                 >
                   <v-text-field
@@ -91,22 +82,19 @@
 </template>
 <script>
 export default {
-  name: 'SignUp',
   data: () => ({
     email: null,
     password: null,
-    passwordConfirm: null,
+    passwordConfirm: null
   }),
   methods: {
-    async signUp () {
-      const result = await this.$refs.observer.validate()
+    async signUp() {
+      const result = await this.$refs.observer.validate();
       if (result) {
-        alert('로그인 로직~')
+        alert("로그인 로직~");
       }
     }
   }
-}
+};
 </script>
-<style lang="">
-
-</style>
+<style lang=""></style>

@@ -23,21 +23,11 @@
         text
         class="py-5 px-2"
         :disabled="idInit.length !== 1"
-        @click="detailsCategory()"
+        @click="detailsCourse()"
       >
         <v-icon>mdi-details</v-icon>
       </v-btn>
-      <v-btn text class="py-5 px-2" @click="createCategory()">
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-      <v-btn
-        text
-        class="py-5 px-2"
-        :disabled="idInit.length !== 1"
-        @click="editCategory()"
-      >
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
+
       <v-btn
         text
         class="py-5 px-2"
@@ -48,21 +38,19 @@
       </v-btn>
     </v-col>
     <v-row>
-      <category-dialog
-        v-if="isCategoryDialog"
-        v-model="isCategoryDialog"
-        :action="action"
-        :idInit="action === 'create' ? 0 : idInit[0].id"
-        @closeDialog="() => (isCategoryDialog = false)"
-        @createSuccess="createSuccess()"
-        @updateSuccess="updateSuccess()"
-      ></category-dialog>
+      <course-dialog
+        v-if="isCourseDialog"
+        v-model="isCourseDialog"
+        title="Course Details"
+        :idInit="idInit[0].id"
+        @closeDialog="() => (isCourseDialog = false)"
+      ></course-dialog>
       <DeleteDialog
         v-if="isDeleteDialog"
         v-model="isDeleteDialog"
         :action="action"
         :idsInit="idInit"
-        title="Delete Category"
+        title="Delete Course"
         @closeDialog="() => (isDeleteDialog = false)"
         @deleteSuccess="deleteSuccess()"
       >
@@ -74,16 +62,16 @@
 <script>
 import _ from "lodash";
 import { mapActions } from "vuex";
-import CategoryDialog from "./CategoryDialog.vue";
+import CourseDialog from "./CourseDialog.vue";
 import DeleteDialog from "./DeleteDialog.vue";
 export default {
   components: {
-    CategoryDialog,
+    CourseDialog,
     DeleteDialog
   },
   data() {
     return {
-      isCategoryDialog: false,
+      isCourseDialog: false,
       isDeleteDialog: false,
       action: "create",
       filters: {},
@@ -102,18 +90,9 @@ export default {
     updateSearch() {
       this.$emit("update:search", this.filters.search);
     },
-    createCategory() {
-      this.isCategoryDialog = true;
-      this.action = "create";
-    },
 
-    editCategory() {
-      this.isCategoryDialog = true;
-      this.action = "edit";
-    },
-
-    detailsCategory() {
-      this.isCategoryDialog = true;
+    detailsCourse() {
+      this.isCourseDialog = true;
       this.action = "details";
     },
 

@@ -23,7 +23,7 @@
 <script>
 import AppDataTable from "@/components/app/DataTable";
 import ListActionRow from "./ListActionRow.vue";
-import { getListCategory } from "@/api/category";
+import { getListCourse } from "@/api/course";
 
 export default {
   components: {
@@ -39,7 +39,11 @@ export default {
         sortable: false,
         value: "id"
       },
-      { text: "Category name", value: "name" }
+      { text: "Name", value: "name" },
+      { text: "Price", value: "price" },
+      { text: "Level", value: "level" },
+      { text: "Language", value: "language" },
+      { text: "Lecture", value: "lectureName" }
     ],
     filters: {
       search: undefined
@@ -59,8 +63,13 @@ export default {
       this.abortController.abort();
       // Tạo mới AbortController
       this.abortController = new AbortController();
-      getListCategory(params, this.abortController.signal).then(res => {
-        this.items = res.data;
+      getListCourse(params, this.abortController.signal).then(res => {
+        this.items = res.data.map(item => {
+          return {
+            ...item,
+            lectureName: item.lecture.firstName + " " + item.lecture.lastName
+          };
+        });
       });
     },
     updateSearch(val) {

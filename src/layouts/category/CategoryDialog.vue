@@ -50,7 +50,7 @@
           tonal
           class="primary white--text ml-6"
         >
-          Agree
+          Save
         </core-button>
       </div>
     </template>
@@ -60,7 +60,7 @@
 <script>
 import CoreDialog from "@/components/core/CoreDialog.vue";
 import CoreButton from "@/components/core/CoreButton.vue";
-import { getCategory, createCategory } from "@/api/category";
+import { getCategory, createCategory, updateCategory } from "@/api/category";
 export default {
   components: { CoreDialog, CoreButton },
   data() {
@@ -112,6 +112,17 @@ export default {
         createCategory(payload)
           .then(res => {
             this.$emit("createSuccess");
+            this.$emit("closeDialog");
+          })
+          .catch(err => console.log(err));
+      } else if (this.isEdit) {
+        const payload = {
+          id: this.idInit,
+          name: this.categoryName
+        };
+        updateCategory(this.idInit, payload)
+          .then(res => {
+            this.$emit("updateSuccess");
             this.$emit("closeDialog");
           })
           .catch(err => console.log(err));

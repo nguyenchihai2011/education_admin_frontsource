@@ -4,4 +4,8 @@ const signIn = function(payload) {
   return apiClient.post("authentication/login", payload);
 };
 
-export { signIn };
+const deleteUser = payload => {
+  return apiClient.delete(`user/bulkdelete`, { data: payload });
+};
+
+export { signIn, deleteUser };

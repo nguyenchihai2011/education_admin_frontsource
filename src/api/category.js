@@ -15,4 +15,18 @@ const createCategory = payload => {
   return apiClient.post("category", payload);
 };
 
-export { getListCategory, getCategory, createCategory };
+const updateCategory = (id, payload) => {
+  return apiClient.put(`category/${id}`, payload);
+};
+
+const deleteCategory = payload => {
+  return apiClient.delete(`category/bulkdelete`, { data: payload });
+};
+
+export {
+  getListCategory,
+  getCategory,
+  createCategory,
+  updateCategory,
+  deleteCategory
+};
