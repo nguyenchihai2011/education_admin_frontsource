@@ -4,7 +4,7 @@
       type="line"
       height="350"
       :options="chartOptions"
-      :series="series"
+      :series="[{ data: dataRevenue }]"
     ></apexchart>
   </div>
 </template>
@@ -17,16 +17,13 @@ export default {
   },
   data() {
     return {
-      series: [
-        {
-          name: "High - 2013",
-          data: [28, 29, 33, 36, 32, 32, 33]
-        },
-        {
-          name: "Low - 2013",
-          data: [12, 11, 14, 18, 17, 13, 13]
-        }
-      ],
+      // chartKey: 0,
+      // series: [
+      //   {
+      //     name: "Revenue",
+      //     data: []
+      //   }
+      // ],
       chartOptions: {
         chart: {
           height: 350,
@@ -51,7 +48,7 @@ export default {
           curve: "smooth"
         },
         title: {
-          text: "Average High & Low Temperature",
+          text: "Revenue statistics chart",
           align: "left"
         },
         grid: {
@@ -65,17 +62,30 @@ export default {
           size: 1
         },
         xaxis: {
-          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
           title: {
-            text: "Month"
+            text: ""
           }
         },
         yaxis: {
           title: {
-            text: "Temperature"
+            text: ""
           },
-          min: 5,
-          max: 40
+          min: 0,
+          max: 4000
         },
         legend: {
           position: "top",
@@ -86,6 +96,12 @@ export default {
         }
       }
     };
+  },
+
+  props: {
+    dataRevenue: {
+      type: Array
+    }
   }
 };
 </script>

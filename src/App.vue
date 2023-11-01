@@ -9,7 +9,6 @@
 
 <script>
 import CoreSnackbar from "@/components/core/CoreSnackbar.vue";
-
 import "@/styles/overrides.sass";
 export default {
   components: { CoreSnackbar }
