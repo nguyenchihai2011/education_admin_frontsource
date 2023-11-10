@@ -1,7 +1,7 @@
 import { apiClient } from "./apiClient";
 
 const getListCourse = (params, signal) => {
-  return apiClient.get("course", {
+  return apiClient.get("course/getall", {
     params,
     signal
   });

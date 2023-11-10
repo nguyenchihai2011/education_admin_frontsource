@@ -64,7 +64,7 @@ export default {
       // Tạo mới AbortController
       this.abortController = new AbortController();
       getListCourse(params, this.abortController.signal).then(res => {
-        this.items = res.data.map(item => {
+        this.items = res.data.result.map(item => {
           return {
             ...item,
             lectureName: item.lecture.firstName + " " + item.lecture.lastName
